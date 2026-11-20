@@ -1,8 +1,8 @@
-# EventLab VWA · Demo 0.2
+# EventLab VWA · Demo 0.3
 
 [**Mở website demo**](https://davidsgreenbook.github.io/eventlab-vwa-demo/)
 
-Bảy bài thực hành cá nhân trong cùng một hội trường, bao phủ sáu vai của dự án mô phỏng tổ chức sự kiện cho Học viện Phụ nữ Việt Nam. Dùng cho trình ý tưởng ngày 23/11/2026; chưa phải hệ thống đánh giá học phần.
+Hội trường khám phá 3D quy mô 480 ghế với bốn khu vực nghiệp vụ, kèm bảy bài thực hành cá nhân, bao phủ sáu vai của dự án mô phỏng tổ chức sự kiện cho Học viện Phụ nữ Việt Nam. Dùng cho trình ý tưởng ngày 23/11/2026; chưa phải hệ thống đánh giá học phần.
 
 | Bài | Tình huống | Vai |
 | --- | --- | --- |
@@ -16,11 +16,21 @@ Bảy bài thực hành cá nhân trong cùng một hội trường, bao phủ s
 
 ## Sử dụng
 
-Mở website → **Chọn bài** → lọc theo vai → chọn tình huống → đọc vị trí, mục tiêu → **Bắt đầu thực hành**. Bài 01 dùng công cụ micro, LED và đèn. Các bài còn lại dùng lựa chọn có phản hồi theo từng nhiệm vụ; chọn sai sẽ có giải thích và chưa chuyển bước. Có gợi ý, nhật ký, kết quả, sản phẩm mô phỏng và luyện lại.
+Mở website → khám phá **Toàn cảnh / Sân khấu / Khán giả / Phòng điều khiển / Truyền thông**. Có thể đổi LED, bố trí sân khấu, cảnh sáng, phản ứng khán giả, micro, preview góc camera và các tác vụ truyền thông mẫu. Chọn **Chế độ trình bày** để ẩn giao diện phục vụ trình chiếu hoặc chụp ảnh; bấm Escape để thoát. Kéo chuột để nhìn quanh, cuộn để tiến hoặc lùi, WASD để di chuyển.
+
+Mở **Bài thực hành** (`practice.html`) → **Chọn bài** → lọc theo vai → chọn tình huống → đọc vị trí, mục tiêu → **Bắt đầu thực hành**. Bài 01 dùng công cụ micro, LED và đèn. Các bài còn lại dùng lựa chọn có phản hồi theo từng nhiệm vụ; chọn sai sẽ có giải thích và chưa chuyển bước. Có gợi ý, nhật ký, kết quả, sản phẩm mô phỏng và luyện lại.
 
 Thời lượng ghi trên thẻ là thời gian tự luyện đề xuất, bao gồm đọc và giải trình. Không dùng thời gian thao tác tự động để kết luận hiệu quả học tập. Sáu bài mới là các bài tập độc lập theo brief riêng, không phải những vai đồng thời trong một sự kiện dùng chung trạng thái.
 
 Tiến độ hoàn thành gần nhất của từng bài được lưu bằng `localStorage` trên trình duyệt này. Nhật ký chi tiết chỉ nằm trong lượt hiện tại; tải JSON trước khi đổi bài/đóng trang nếu cần giữ. Chọn bài mới bắt đầu lại lượt của bài đó. Không có máy chủ lưu điểm hoặc dữ liệu sinh viên.
+
+## Không gian hội trường 0.3
+
+Mô hình gồm 384 ghế ở sàn chính, 96 ghế ban công, sân khấu LED lớn, giàn đèn, bục/ghế tọa đàm, phòng điều khiển, bàn thiết kế, trạm livestream và trường quay phỏng vấn. Quy mô là giả định phục vụ minh họa, không phải thiết kế xây dựng hoặc yêu cầu diện tích phòng học thật. Các bản tin, phỏng vấn và phản hồi khán giả đều theo kịch bản; livestream không phát ra mạng.
+
+WebGL dùng Three.js và gộp hình học lặp bằng InstancedMesh. Khi thiếu WebGL, cùng mô hình được dựng phối cảnh bằng Canvas trên CPU; vẫn có các góc nhìn, vật thể và tương tác, nhưng không phải phiên VR. Phần `practice.html` giữ chế độ minh họa 2D dự phòng cũ.
+
+Các liên kết cũ `?scenario=...` ở trang gốc vẫn chuyển đến đúng bài thực hành. Các khu vực có thể mở qua `?zone=stage`, `?zone=audience`, `?zone=control`, `?zone=media`.
 
 ## Máy tính và VR
 
@@ -40,6 +50,10 @@ Three.js 0.170.0 được đặt cục bộ trong `vendor/`, kèm giấy phép M
 
 ## Chỉnh sửa và kiểm tra
 
+- `venue-model.js`: mô hình chung, bố trí hội trường và điểm chuyển khu vực.
+- `venue-renderer.js`: WebGL, dựng phối cảnh Canvas và controller chuyển khu vực.
+- `venue.js`, `venue.css`, `index.html`: giao diện khám phá và thao tác mẫu.
+- `practice.html`: giao diện bảy bài thực hành được giữ lại.
 - `catalog.js`: dữ liệu sáu bài mới và logic lựa chọn, sản phẩm, nhật ký.
 - `scenario.js`: logic bài micro gốc.
 - `app.js`: thư viện bài, giao diện, âm thanh, góc nhìn, cảnh và tương tác WebXR.
@@ -48,6 +62,6 @@ Three.js 0.170.0 được đặt cục bộ trong `vendor/`, kèm giấy phép M
 - `PRESENTATION.md`: kịch bản trình bày ngắn.
 - `DEPLOYMENT.md`: cập nhật GitHub Pages/hosting.
 
-Chạy `npm test` (15 kiểm tra), `node --check app.js`, `node --check catalog.js`. Thay đổi đã commit vào nhánh `main` sẽ kích hoạt GitHub Pages từ thư mục gốc. Không mở qua `file://`; dùng HTTP localhost hoặc HTTPS.
+Chạy `npm test` (17 kiểm tra), `node --check app.js`, `node --check catalog.js`. Thay đổi đã commit vào nhánh `main` sẽ kích hoạt GitHub Pages từ thư mục gốc. Không mở qua `file://`; dùng HTTP localhost hoặc HTTPS.
 
 Trước khi trình bằng kính: thử vào/thoát VR, hai controller, từng vị trí vai, các lựa chọn dài, hoàn tất/luyện lại và hiệu năng. Giảng viên cần thẩm định nội dung và các phương án được chấp nhận trước khi dùng trong giảng dạy chính thức.

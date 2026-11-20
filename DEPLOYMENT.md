@@ -36,7 +36,8 @@ Với thay đổi nhỏ, mở tệp trên GitHub, chọn Edit, sửa và Commit 
 | Checklist, điều kiện sẵn sàng, quy tắc sự cố, báo cáo | `scenario.js` |
 | Cảnh 3D, tương tác, kết nối giao diện, thời điểm tạo sự cố | `app.js` |
 | Màu sắc, kích thước và bố trí giao diện | `style.css` |
-| Tiêu đề, nút và bố cục HTML | `index.html` |
+| Hội trường khám phá 0.3 | `index.html`, `venue.js`, `venue-model.js`, `venue-renderer.js`, `venue.css` |
+| Tiêu đề, nút và bố cục bài thực hành | `practice.html` |
 | Hình minh họa dùng khi thiếu WebGL | `fallback.js` |
 
 ## C. Netlify Drop

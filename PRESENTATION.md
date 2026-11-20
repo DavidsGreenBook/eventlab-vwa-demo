@@ -1,3 +1,16 @@
+# Khám phá hội trường EventLab VWA 0.3
+
+Mở website ở trang chính. Trình diễn lần lượt bốn khu vực, sau đó mở Bài thực hành để làm một tình huống.
+
+1. Toàn cảnh: giới thiệu 480 ghế ảo, sân khấu, khán phòng, phòng điều khiển và cánh truyền thông. Quy mô minh họa không phải mặt bằng phòng học 70 m².
+2. Sân khấu: đổi nội dung LED và chuyển ghế tọa đàm sang bục phát biểu; thử cảnh sáng.
+3. Khán giả: chọn Đặt câu hỏi hoặc Vỗ tay; giải thích phản hồi theo kịch bản.
+4. Phòng điều khiển: thử micro, âm lượng, chuyển góc camera preview từ mô hình 3D.
+5. Hậu trường: quan sát bàn thiết kế, trạm livestream và trường quay phỏng vấn; thử bản tin mẫu. Livestream chưa phát mạng.
+6. Bài thực hành: chọn một trong bảy bài theo kịch bản bên dưới.
+
+Chế độ trình bày ẩn bảng điều khiển để chụp ảnh; Escape để trở lại. Nếu không có WebGL, hội trường vẫn được dựng phối cảnh 3D bằng Canvas trên CPU. Cần thử WebGL và kính thật trước khi cam kết chất lượng VR.
+
 # Kịch bản trình diễn EventLab VWA 0.2 · 5–7 phút
 
 Mở https://davidsgreenbook.github.io/eventlab-vwa-demo/ và kiểm tra âm thanh, màn hình trước buổi trình. Nhấn **Chọn bài** nếu cần quay lại thư viện. Nếu trình duyệt dùng minh họa 2D, giới thiệu rõ đây là chế độ dự phòng, chưa xác nhận chất lượng kính VR.
