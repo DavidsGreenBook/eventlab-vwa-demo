@@ -58,7 +58,7 @@ export class VenueRenderer{
  setView(zone,data){this.zone=zone;this.p.set(...data.p);this.target.set(...data.target);this.yaw=this.pitch=0;this.baseP=this.p.clone();this.baseTarget=this.target.clone();if(this.gl?.xr.isPresenting)this.xrPosition(data.walk,data.target);this.request();}
  move(side,forward){if(this.gl?.xr.isPresenting)return;this.syncCamera();const dir=new V();this.camera.getWorldDirection(dir);const right=new V().crossVectors(dir,new V(0,1,0)).normalize();const delta=dir.multiplyScalar(forward*1.2).add(right.multiplyScalar(side*1.2));this.p.add(delta);this.target.add(delta);this.p.x=THREE.MathUtils.clamp(this.p.x,-24,50);this.p.z=THREE.MathUtils.clamp(this.p.z,-34,55);this.p.y=THREE.MathUtils.clamp(this.p.y,1.4,40);this.request();}
  syncCamera(){if(this.gl?.xr.isPresenting)return;const dir=new V().subVectors(this.target,this.p);const distance=dir.length();const spherical=new THREE.Spherical().setFromVector3(dir);spherical.theta+=this.yaw;spherical.phi=THREE.MathUtils.clamp(spherical.phi-this.pitch,.18,Math.PI-.18);const look=new V().setFromSpherical(spherical).add(this.p);this.rig.position.set(0,0,0);this.rig.rotation.set(0,0,0);this.camera.position.copy(this.p);this.camera.lookAt(look);this.camera.updateMatrixWorld();this.camera.matrixWorldInverse.copy(this.camera.matrixWorld).invert();this.distance=distance;}
- resize(){const r=this.host.getBoundingClientRect();this.w=r.width;this.h=r.height;if(!this.w||!this.h)return;this.camera.aspect=this.w/this.h;this.camera.updateProjectionMatrix();if(this.gl&&!this.gl.xr.isPresenting)this.gl.setSize(this.w,this.h);if(!this.gl){const ratio=Math.min(devicePixelRatio,1.6);this.el.width=Math.round(this.w*ratio);this.el.height=Math.round(this.h*ratio);this.ratio=ratio;}this.request();}
+ resize(){const r=this.host.getBoundingClientRect();this.w=r.width;this.h=r.height;if(!this.w||!this.h)return;this.camera.aspect=this.w/this.h;this.camera.updateProjectionMatrix();if(this.gl&&!this.gl.xr.isPresenting)this.gl.setSize(this.w,this.h);if(!this.gl){const ratio=Math.min(devicePixelRatio,1.6);const nw=Math.round(this.w*ratio),nh=Math.round(this.h*ratio);if(this.el.width!==nw||this.el.height!==nh){this.el.width=nw;this.el.height=nh;}this.ratio=ratio;}this.request();}
  request(){if(this.pending)return;this.pending=true;requestAnimationFrame(()=>{this.pending=false;this.draw();});}
  draw(){if(!this.model||!this.w)return;this.syncCamera();if(this.gl){this.root.children.forEach(o=>{o.visible=!(o.userData.roof&&(this.zone==='overview'||this.zone==='media'))&&!(o.userData.cutaway&&(this.zone==='overview'||this.zone==='media'));if(o.userData.billboard)o.quaternion.copy(this.camera.quaternion);});this.gl.render(this.scene,this.camera);}else this.drawSoftware();}
  project(point){const a=point.clone().applyMatrix4(this.camera.matrixWorldInverse);const z=-a.z;if(z<.12)return null;const f=this.h/(2*Math.tan(this.camera.fov*Math.PI/360));return [this.w/2+a.x*f/z,this.h/2-a.y*f/z,z];}
@@ -78,7 +78,7 @@ export class VenueRenderer{
     ps=vs.map(p=>[w/2+p.x*f/-p.z,h/2-p.y*f/-p.z]);
    }
    if(ps.every(p=>p[0]<0)||ps.every(p=>p[0]>w)||ps.every(p=>p[1]<0)||ps.every(p=>p[1]>h))continue;
-   output.push({...c,ps,z:z-(c.type==='label'?.38:0)});
+   output.push({...c,ps,z:z-(c.type==='label'?.38:c.item.console?.8:0)});
    if(item.target&&c.type==='label'){const p=this.project(c.center);if(p)this.hotspots.push({x:p[0],y:p[1],r:Math.max(18,item.s[0]*f/p[2]*.5),id:item.target});}
   }
   output.sort((a,b)=>b.z-a.z);
