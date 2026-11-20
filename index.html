@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="vi">
+<head>
+ <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+ <meta name="theme-color" content="#10141f">
+ <meta name="description" content="Thực hành nhập vai kỹ thuật điều hành sân khấu: kiểm tra hệ thống, chạy chương trình và xử lý sự cố trong hội trường 3D.">
+ <title>EventLab VWA · Kỹ thuật điều hành sân khấu</title>
+ <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+ <header class="topbar">
+  <a class="brand" href="./" aria-label="EventLab trang chính"><span class="brand-symbol">E<span>•</span></span><span>EventLab<small>VIETNAM WOMEN’S ACADEMY</small></span></a>
+  <div class="lesson-label"><span class="tag">PHÒNG THỰC HÀNH VR</span><span>Kỹ thuật điều hành sân khấu</span></div>
+  <nav class="top-actions"><button id="help" class="quiet" title="Hướng dẫn">Hướng dẫn</button><button id="sound" class="quiet" aria-pressed="true">Âm thanh bật</button><button id="vr" class="vr-button" disabled>Đang kiểm tra VR</button></nav>
+ </header>
+ <main>
+  <section class="workspace" aria-label="Hội trường mô phỏng">
+   <div id="viewport"><div id="render-error" hidden></div></div>
+   <div class="scene-top"><div><div class="eyebrow">TALKSHOW · TRUYỀN THÔNG CÓ TRÁCH NHIỆM</div><h1>Đứng sau một sự kiện thành công.</h1><p>Vị trí kỹ thuật <span class="divider">/</span> Hội trường mô phỏng</p></div><span class="live-status" id="live-status">TỔNG DUYỆT</span></div>
+   <div class="camera-tabs" role="group" aria-label="Góc quan sát"><button class="selected" data-camera="tech">Bàn kỹ thuật</button><button data-camera="stage">Sân khấu</button><button data-camera="wide">Toàn cảnh</button></div>
+   <div class="scene-note" id="scene-note">Kéo chuột để nhìn quanh · Bấm thiết bị hoặc dùng bảng điều khiển</div>
+   <div class="radio"><span class="radio-icon">◉</span><div><span class="radio-title">BỘ ĐÀM · ĐẠO DIỄN</span><p id="director">Chào mừng đến vị trí kỹ thuật. Bắt đầu lượt thực hành để nhận nhiệm vụ.</p></div><button id="repeat" class="icon-btn" aria-label="Nghe lại lời đạo diễn">↻</button></div>
+   <section class="console" aria-label="Bảng điều khiển kỹ thuật">
+    <div class="console-section sound-section"><div class="section-heading"><h2>Âm thanh</h2><span class="signal" id="signal">CHƯA KIỂM TRA</span></div>
+     <div class="mic-row"><button data-action="mic1" class="mic-button" id="mic1" aria-pressed="false"><span class="mic-glyph">♩</span><span>MIC 1<small>Diễn giả</small></span><span class="switch"></span></button><button data-action="mic2" class="mic-button" id="mic2" aria-pressed="false"><span class="mic-glyph">♩</span><span>MIC 2<small>Dự phòng</small></span><span class="switch"></span></button></div>
+     <div class="volume-row"><label for="volume">Âm lượng</label><input id="volume" type="range" min="0" max="100" value="65"><output id="volume-value" for="volume">65%</output></div>
+     <button data-action="test" class="outline full" id="test">Kiểm tra tín hiệu</button>
+    </div>
+    <div class="console-section"><div class="section-heading"><h2>Hình ảnh & ánh sáng</h2><span class="channel-label">STAGE CONTROL</span></div>
+     <label class="control-label">Nội dung màn hình LED</label><div class="segmented"><button data-slide="standby" class="selected">Chờ</button><button data-slide="intro">Giới thiệu</button><button data-slide="live">Sự kiện</button></div>
+     <label class="control-label">Cảnh ánh sáng</label><div class="light-controls"><button data-light="off" class="selected"><i class="swatch dark"></i>Tắt</button><button data-light="warm"><i class="swatch warm"></i>Ấm</button><button data-light="show"><i class="swatch show"></i>Sự kiện</button></div>
+    </div>
+    <div class="console-section cue-section"><div class="section-heading"><h2>Điều hành</h2><span id="timer">00:00</span></div><button data-action="ready" class="outline full" id="ready">Báo sẵn sàng</button><button data-action="go" class="go-button full" id="go"><span class="play">▶</span>Chạy mở màn</button><button data-action="finish" id="finish" class="finish-button full" disabled>Kết thúc phiên</button></div>
+   </section>
+  </section>
+  <aside class="mission-panel">
+   <div class="mission-head"><span class="eyebrow">BÀI THỰC HÀNH 01</span><span class="duration">5–8 phút</span></div><h2>Sẵn sàng.<br>Đúng cue. Bình tĩnh.</h2><p class="mission-summary">Chuẩn bị kỹ thuật cho talkshow và giữ chương trình tiếp tục khi sự cố xảy ra.</p>
+   <div class="progress-caption"><span>Tiến độ nhiệm vụ</span><strong id="progress-value">0 / 7</strong></div><div class="progress-track"><div id="progress-bar"></div></div>
+   <div class="mode-row"><span>Hướng dẫn từng bước</span><button id="guide" class="toggle on" aria-pressed="true" aria-label="Hướng dẫn từng bước"><span></span></button></div>
+   <ol id="tasks" class="task-list"></ol>
+   <div class="mission-foot"><button id="hint" class="hint-button">Gợi ý bước hiện tại</button><button id="reset" class="quiet">Luyện lại</button></div>
+   <details class="log-panel"><summary>Nhật ký thao tác <span id="log-count">0</span></summary><div id="log" role="log" aria-live="off"></div></details>
+   <div class="prototype-note">Demo ý tưởng · 1 người thực hành<br>WebXR chưa kiểm thử trên kính thật.</div>
+  </aside>
+ </main>
+ <div id="toast" role="status" aria-live="polite"></div>
+ <dialog id="welcome">
+  <button class="dialog-close" data-close="welcome" aria-label="Đóng hướng dẫn">×</button><span class="eyebrow">EVENTLAB VWA · DEMO 0.1</span><h2>Đến lượt bạn<br>điều hành sân khấu.</h2><p>Nhập vai kỹ thuật viên trong một talkshow. Kiểm tra thiết bị, nhận cue từ đạo diễn và xử lý sự cố âm thanh.</p>
+  <div class="intro-cards"><div><b>01</b><span>Chuẩn bị<small>Micro · LED · Ánh sáng</small></span></div><div><b>02</b><span>Vận hành<small>Phối hợp theo tín hiệu</small></span></div><div><b>03</b><span>Xử lý sự cố<small>Kiểm tra · Chuyển dự phòng</small></span></div></div>
+  <p class="intro-instruction">Trên máy tính: kéo chuột để nhìn quanh, bấm bảng điều khiển để thao tác. Trong VR: dùng tia chỉ của controller và nút cò để chọn nút trên bàn kỹ thuật.</p><button id="start" class="primary full">Bắt đầu thực hành</button><p class="fineprint">Âm thanh, nhân vật và sự cố được mô phỏng theo kịch bản.</p>
+ </dialog>
+ <dialog id="results"><button class="dialog-close" data-close="results" aria-label="Đóng kết quả">×</button><span class="eyebrow">HOÀN THÀNH LƯỢT THỰC HÀNH</span><h2>Bạn đã giữ<br>chương trình tiếp tục.</h2><p>Micro dự phòng đã hoạt động và kênh lỗi đã được tắt.</p><div class="result-grid" id="result-grid"></div><div class="feedback"><h3>Điểm rút kinh nghiệm</h3><p id="feedback"></p></div><div class="result-actions"><button id="export" class="outline">Tải nhật ký JSON</button><button id="again" class="primary">Luyện lại</button></div><p class="fineprint">Kết quả phục vụ tự luyện; giảng viên đánh giá năng lực qua thao tác và giải trình.</p></dialog>
+ <noscript>Vui lòng bật JavaScript để sử dụng phòng thực hành.</noscript>
+ <script type="module" src="./app.js"></script>
+</body></html>
