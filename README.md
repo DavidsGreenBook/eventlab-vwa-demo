@@ -1,8 +1,20 @@
-# EventLab VWA · Demo 0.3
+# EventLab VWA · Demo 0.4
 
 [**Mở website demo**](https://davidsgreenbook.github.io/eventlab-vwa-demo/)
 
-Hội trường khám phá 3D quy mô 480 ghế với bốn khu vực nghiệp vụ, kèm bảy bài thực hành cá nhân, bao phủ sáu vai của dự án mô phỏng tổ chức sự kiện cho Học viện Phụ nữ Việt Nam. Dùng cho trình ý tưởng ngày 23/11/2026; chưa phải hệ thống đánh giá học phần.
+Bản đồ ba không gian sự kiện dành cho đề xuất phòng học mô phỏng của Học viện Phụ nữ Việt Nam. Bản 0.4 ưu tiên truyền đạt ý tưởng: quảng trường chung → chọn chương trình → tham gia không gian → xem vai trò, đề bài và giá trị học tập.
+
+| Không gian | Sự kiện minh hoạ | Trọng tâm học tập |
+| --- | --- | --- |
+| Trung tâm hội nghị | Lễ khai mạc Diễn đàn Phụ nữ và Truyền thông | Nghi thức, điều phối đại biểu, báo chí |
+| Giảng đường quốc tế | Hội thảo Truyền thông trong kỷ nguyên số | Trình chiếu song ngữ, phiên dịch, thời lượng và hỏi đáp |
+| Sân khấu ngoài trời | Âm nhạc và biểu diễn Kết nối sáng tạo | Thứ tự tiết mục, tín hiệu sân khấu, kỹ thuật và hậu trường |
+
+Mỗi không gian có sân khấu, khán giả, bàn điều khiển và khu truyền thông. Kiến trúc và bố trí thay đổi theo thể loại. Nhân vật chỉ minh hoạ vị trí của ê kíp và người tham dự; không phải người dùng trực tuyến hoặc AI hội thoại. Các tên và tình huống là giả định học tập.
+
+Trên bản đồ, chọn một thẻ chương trình hoặc biển chỉ dẫn trong cảnh; nhân vật sinh viên di chuyển đến khu vực tương ứng. Bấm **Tham gia chương trình**, chọn **Vai trò / Kịch bản / Học tập** hoặc các góc nhìn. **Chế độ trình bày** ẩn giao diện để chụp ảnh; Escape để trở lại. Đây là demo ý tưởng trên trình duyệt, chưa triển khai phiên VR nhập vai cho bản đồ và ba không gian mới.
+
+Bản hội trường 0.3 được giữ ở `hall.html`. Bảy bài thực hành cá nhân độc lập được giữ ở `practice.html`; các giới hạn và hướng dẫn dưới đây thuộc các bản thử nghiệm này.
 
 | Bài | Tình huống | Vai |
 | --- | --- | --- |
@@ -16,7 +28,7 @@ Hội trường khám phá 3D quy mô 480 ghế với bốn khu vực nghiệp v
 
 ## Sử dụng
 
-Mở website → khám phá **Toàn cảnh / Sân khấu / Khán giả / Phòng điều khiển / Truyền thông**. Có thể đổi LED, bố trí sân khấu, cảnh sáng, phản ứng khán giả, micro, preview góc camera và các tác vụ truyền thông mẫu. Chọn **Chế độ trình bày** để ẩn giao diện phục vụ trình chiếu hoặc chụp ảnh; bấm Escape để thoát. Kéo chuột để nhìn quanh, cuộn để tiến hoặc lùi, WASD để di chuyển.
+Mở `hall.html` → khám phá **Toàn cảnh / Sân khấu / Khán giả / Phòng điều khiển / Truyền thông**. Có thể đổi LED, bố trí sân khấu, cảnh sáng, phản ứng khán giả, micro, preview góc camera và các tác vụ truyền thông mẫu. Chọn **Chế độ trình bày** để ẩn giao diện phục vụ trình chiếu hoặc chụp ảnh; bấm Escape để thoát. Kéo chuột để nhìn quanh, cuộn để tiến hoặc lùi, WASD để di chuyển.
 
 Mở **Bài thực hành** (`practice.html`) → **Chọn bài** → lọc theo vai → chọn tình huống → đọc vị trí, mục tiêu → **Bắt đầu thực hành**. Bài 01 dùng công cụ micro, LED và đèn. Các bài còn lại dùng lựa chọn có phản hồi theo từng nhiệm vụ; chọn sai sẽ có giải thích và chưa chuyển bước. Có gợi ý, nhật ký, kết quả, sản phẩm mô phỏng và luyện lại.
 
@@ -50,9 +62,12 @@ Three.js 0.170.0 được đặt cục bộ trong `vendor/`, kèm giấy phép M
 
 ## Chỉnh sửa và kiểm tra
 
+- `campus-data.js`: ba chương trình, sáu vai và góc nhìn.
+- `campus-model.js`: quảng trường và ba bối cảnh hình học riêng.
+- `campus.js`, `campus.css`, `index.html`: luồng chọn, tham gia, vai trò và trình bày.
 - `venue-model.js`: mô hình chung, bố trí hội trường và điểm chuyển khu vực.
 - `venue-renderer.js`: WebGL, dựng phối cảnh Canvas và controller chuyển khu vực.
-- `venue.js`, `venue.css`, `index.html`: giao diện khám phá và thao tác mẫu.
+- `venue.js`, `venue.css`, `hall.html`: giao diện khám phá và thao tác mẫu.
 - `practice.html`: giao diện bảy bài thực hành được giữ lại.
 - `catalog.js`: dữ liệu sáu bài mới và logic lựa chọn, sản phẩm, nhật ký.
 - `scenario.js`: logic bài micro gốc.
@@ -62,6 +77,6 @@ Three.js 0.170.0 được đặt cục bộ trong `vendor/`, kèm giấy phép M
 - `PRESENTATION.md`: kịch bản trình bày ngắn.
 - `DEPLOYMENT.md`: cập nhật GitHub Pages/hosting.
 
-Chạy `npm test` (17 kiểm tra), `node --check app.js`, `node --check catalog.js`. Thay đổi đã commit vào nhánh `main` sẽ kích hoạt GitHub Pages từ thư mục gốc. Không mở qua `file://`; dùng HTTP localhost hoặc HTTPS.
+Chạy `npm test` (19 kiểm tra), `node --check app.js`, `node --check catalog.js`. Thay đổi đã commit vào nhánh `main` sẽ kích hoạt GitHub Pages từ thư mục gốc. Không mở qua `file://`; dùng HTTP localhost hoặc HTTPS.
 
 Trước khi trình bằng kính: thử vào/thoát VR, hai controller, từng vị trí vai, các lựa chọn dài, hoàn tất/luyện lại và hiệu năng. Giảng viên cần thẩm định nội dung và các phương án được chấp nhận trước khi dùng trong giảng dạy chính thức.
